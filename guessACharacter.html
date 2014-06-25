@@ -1,0 +1,49 @@
+<script>
+//Guess a name of a Game of Thrones character from this list
+var characters = ["Arya", "Bran", "Brienne", "Catelyn", "Cersei", "Daenerys", "Jaime", "Joffrey", "Jon", "Jorah", "Margaery", "Melisandre", "Petyr", "Ramsay", "Robb", "Samwell", "Sandor", "Sansa", "Stannis", "Theon", "Tyrion", "Tywin", "Varys", "Ygritte"];
+var min = 0;
+var max = characters.length - 1;
+var question = 0;
+var secret = characters[Math.floor(Math.random() * (max + 1))];
+var middle = 0;
+
+//Binary search algorithm w/ data structure
+while (min < max) {
+	middle = min + Math.ceil(((max - min - 1) / 2) + 1);
+	question++;
+	console.log(question + ". Does your character's name come before " + characters[middle] + " in the array? ");
+	sleep(2000);
+
+	if (secret < characters[middle]) {
+		max = middle - 1;
+		console.log("   > Yes");
+		sleep(1000);
+		
+	}	else {
+			min = middle;
+			console.log("   > No");
+			sleep(1000);
+		}
+}
+
+	console.log((question + 1) + ". Guess: Is the character you picked " + characters[min] + "? ");
+
+	if (secret == characters[max]) {
+		console.log("   > Yes");
+		
+	}	else {
+			console.log("   > No");
+		}
+
+//Pauses parts of the code for x milliseconds, while other processes continue
+//Caution - may freeze browser
+function sleep(milliseconds) {
+			var start = new Date().getTime();
+			//1e7: megasecond, not Ie7!
+			for (var i = 0; i < 1e7; i++) {
+				if ((new Date().getTime() - start) > milliseconds) {
+					break;
+				}
+			}
+		}
+</script>
